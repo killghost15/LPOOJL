@@ -14,6 +14,7 @@ public class Dragao extends Peca {
 	public int getY(){
 		return y;
 	}
+	//Origina o random que da origem a probabilidade, que faz o dragao saltar
 	public char dragaomove(){
 		Random randomdragao = new Random();
 		int numero = randomdragao.nextInt(100)+1;
@@ -29,6 +30,7 @@ public class Dragao extends Peca {
 		else
 			return 'm';
 	}
+	//Actualiza o valor da posicao do dargao
 	public void Move(int x,int y){
 		this.x=x;
 		this.y=y;

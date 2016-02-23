@@ -59,6 +59,7 @@ public class Tabuleiro {
 		
 	
 	}
+	// Verifica se quando o heroi e o dragao estao juntos e se morrem
 	public boolean Morre(){
 		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado())
 			{
@@ -72,12 +73,14 @@ public class Tabuleiro {
 		}
 		return false;
 	}
+	// Verfica se a posição nao e uma parede
 	public boolean Valida(int x,int y){
-		if (tabuleiro[y][x]!='X')
+		if (tabuleiro[y][x]=='X')
 			return false;
 		else return true;
 			
 	}
+	// Movimentos do heroi segundo o input do utilizador
 	public void MoveH(char direc){
 		
 		switch(direc){
@@ -178,6 +181,7 @@ public class Tabuleiro {
 		}
 		
 		}
+	//Desenha o Tabuleiro
 	public void DesenhaTabuleiro(){
 		for(int i=0; i< 10;i++){
 			for(int j=0; j<10;j++){
@@ -186,6 +190,7 @@ public class Tabuleiro {
 			System.out.print("\n");
 		}
 	}
+	// Verifica o estado de cada uma das Entidades
 	public boolean getEstadoDragao(){
 		return Dramorto;
 	}
