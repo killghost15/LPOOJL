@@ -8,12 +8,7 @@ public class Dragao extends Peca {
 		super(x,y);
 		
 	}
-	public int getX(){
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
+	
 	//Origina o random que da origem a probabilidade, que faz o dragao saltar
 	public char dragaomove(){
 		Random randomdragao = new Random();

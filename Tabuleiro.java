@@ -7,13 +7,11 @@ public class Tabuleiro {
 	static Heroi h;
 	static Dragao d;
 	static Espada e;
-	static Saida s;
 	//cria tabuleiro
 	public Tabuleiro(){
 		h=new Heroi(1,1);
 		d=new Dragao(3,1);
 		e=new Espada(8,1);
-		s=new Saida(5,9);
 		Dramorto=false;
 		morto=false;
 		tabuleiro = new char[10][10];

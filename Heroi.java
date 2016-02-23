@@ -11,12 +11,6 @@ public class Heroi extends Peca {
 	public void ApanhaEspada(){
 		Espada=true;
 	}
-	public int getX() {
-		return x;
-	}
-	public int getY(){
-		return y;
-	}
 	public boolean Armado(){
 		return Espada;
 	}
