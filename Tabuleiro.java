@@ -1,17 +1,18 @@
 package maze.logic;
 
 public class Tabuleiro {
-	static char tabuleiro [][];
-	static boolean Dramorto;
-	static boolean morto;
-	static Heroi h;
-	static Dragao d;
-	static Espada e;
+	private char tabuleiro [][];
+	private boolean Dramorto;
+	private boolean morto;
+	private Heroi h;
+	private Dragao d;
+	private Saida s;
+	
 	//cria tabuleiro
 	public Tabuleiro(){
 		h=new Heroi(1,1);
-		d=new Dragao(3,1);
-		e=new Espada(8,1);
+		d=new Dragao(1,3);
+		s=new Saida(9,5);
 		Dramorto=false;
 		morto=false;
 		tabuleiro = new char[10][10];
@@ -57,24 +58,27 @@ public class Tabuleiro {
 		
 	
 	}
-	// Verifica se quando o heroi e o dragao estao juntos e se morrem
-	public boolean Morre(){
+	// Verifica se quando o heroi e o dragao estao juntos e qual morre
+	public void Morre(){
 		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado())
 			{
 			morto=true;
-			return true;
 			}
-		else if ((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && h.Armado())
+		if ((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && h.Armado())
 		{
+			tabuleiro[d.getY()][d.getX()]=' ';
 			Dramorto=true;
-		return false;
 		}
-		return false;
+		
 	}
-	// Verfica se a posição nao e uma parede
+	// Verfica se a posição nao e uma parede e não permite ao heroi ir para a saida sem matar o dragão
 	public boolean Valida(int x,int y){
 		if (tabuleiro[y][x]=='X')
 			return false;
+		if(tabuleiro[y][x]=='S' && !Dramorto){
+			System.out.println("AINDA NÃO MATOU O DRAGÃO!");
+			return false;
+			}
 		else return true;
 			
 	}
@@ -195,8 +199,10 @@ public class Tabuleiro {
 	public Heroi getHeroi(){
 		return h;
 	}
-	public char [][] getTabuleiro(){
-		return tabuleiro;
+	public boolean Saiu(){
+		if(s.getY()==h.getY() && s.getX()== h.getX())return true;
+		
+		else return false;
 	}
 	public boolean getEstado(){
 		return morto;
