@@ -1,3 +1,4 @@
+package maze.logic;
 
 public class Tabuleiro {
 	static char tabuleiro [][];
@@ -77,7 +78,7 @@ public class Tabuleiro {
 		else return true;
 			
 	}
-	public void Move(char direc){
+	public void MoveH(char direc){
 		
 		switch(direc){
 		case 'w': if(Valida(h.getX(),h.getY()-1)){
@@ -188,12 +189,14 @@ public class Tabuleiro {
 	public boolean getEstadoDragao(){
 		return Dramorto;
 	}
+	public Heroi getHeroi(){
+		return h;
+	}
+	public char [][] getTabuleiro(){
+		return tabuleiro;
+	}
 	public boolean getEstado(){
 		return morto;
 	}
-	public static void main(String args[]){
-		Tabuleiro T = new Tabuleiro();
-		T.DesenhaTabuleiro();
-		
-	}
+	
 }
