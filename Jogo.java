@@ -26,10 +26,10 @@ public class Jogo {
 			
 			T.Morre();
 			T.MoveD();
-			T.Morre();
 			if(T.getEstadoDragao())
 				System.out.println("Aspect of dragon, matáste o temível dragão");
 			T.DesenhaTabuleiro();
+			T.Morre();
 		}
 		if (T.getEstado()){
 			System.out.print("\n");

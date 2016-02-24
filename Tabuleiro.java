@@ -83,6 +83,7 @@ public class Tabuleiro {
 		else return true;
 			
 	}
+	//Dragão Move-se 
 	public void MoveD(){
 		if (Dramorto || Morto)return;
 		else{
@@ -294,17 +295,18 @@ public class Tabuleiro {
 			System.out.print("\n");
 		}
 	}
-	// Verifica o estado de cada uma das Entidades
+	// Verifica o estado de vida do dragão se estiver morto= true
 	public boolean getEstadoDragao(){
 		return Dramorto;
 	}
-	//função util para testes de erro 
+	//funções uteis para testes de erro 
 	public Heroi getHeroi(){
 		return h;
 	}
 	public Dragao getDragao(){
 		return d;
 	}
+	// testa se chegaste a saida já depois de matares o dragão pois a função válida() não te deixa ir para saida sem matares o dragão
 	public boolean Saiu(){
 		if(s.getY()==h.getY() && s.getX()== h.getX())return true;
 		
