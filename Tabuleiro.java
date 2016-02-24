@@ -8,7 +8,7 @@ public class Tabuleiro {
 	private Dragao d;
 	private Saida s;
 	private Espada e;
-	//cria tabuleiro
+	//cria tabuleiro(labirinto)
 	public Tabuleiro(){
 		h=new Heroi(1,1);
 		d=new Dragao(1,3);
@@ -59,7 +59,7 @@ public class Tabuleiro {
 		
 	
 	}
-	// Verifica se quando o heroi e o dragao estao juntos e qual morre
+	// Verifica se quando o heroi e o dragao estao juntos e qual morre também verificando se o dragão está a dormir ou não
 	public void Morre(){
 		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado() && !d.getDorme())
 			{
@@ -83,8 +83,10 @@ public class Tabuleiro {
 		else return true;
 			
 	}
+	
+	// está preparado para se poder perguntar ao utilizador qual a probabilidade de o dragão adormecer 0-100
 	public void Adormece (){
-		d.Adormece();
+		d.Adormece(20);
 	}
 	//Dragão Move-se se não estiver morto ou a dormir, e tbm não se move se o heroi morreu.
 	public void MoveD(){
@@ -287,7 +289,7 @@ public class Tabuleiro {
 			
 		}
 		break;
-			default: System.out.print("Não é uma direcção aceite");
+			default: System.out.println("Não é uma direcção aceite");
 			break;
 		}
 		

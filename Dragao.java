@@ -36,10 +36,10 @@ public class Dragao extends Peca {
 public boolean getDorme(){
 	return Dorme;
 }
-public void Adormece(){
+public void Adormece(int prob){
 	Random randomdragao = new Random();
 	int numero=randomdragao.nextInt(99)+1;
-	if (numero < 20)
+	if (numero < prob)
 		Dorme= true;
 	else 
 		Dorme = false;
