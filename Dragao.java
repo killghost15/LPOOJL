@@ -3,9 +3,10 @@ import java.util.Random;
 
 
 public class Dragao extends Peca {
-	
+	boolean Dorme;
 	public Dragao(int x,int y){
 		super(x,y);
+		Dorme=false;
 		
 	}
 	
@@ -31,5 +32,16 @@ public class Dragao extends Peca {
 		this.y = y;
 	}
 
-}
 
+public boolean getDorme(){
+	return Dorme;
+}
+public void Adormece(){
+	Random randomdragao = new Random();
+	int numero=randomdragao.nextInt(99)+1;
+	if (numero < 20)
+		Dorme= true;
+	else 
+		Dorme = false;
+}
+}

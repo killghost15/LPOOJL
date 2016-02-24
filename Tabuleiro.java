@@ -61,7 +61,7 @@ public class Tabuleiro {
 	}
 	// Verifica se quando o heroi e o dragao estao juntos e qual morre
 	public void Morre(){
-		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado())
+		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado() && !d.getDorme())
 			{
 			Morto=true;
 			}
@@ -83,9 +83,15 @@ public class Tabuleiro {
 		else return true;
 			
 	}
-	//Dragão Move-se 
+	public void Adormece (){
+		d.Adormece();
+	}
+	//Dragão Move-se se não estiver morto ou a dormir, e tbm não se move se o heroi morreu.
 	public void MoveD(){
-		if (Dramorto || Morto)return;
+		if (Dramorto || Morto|| d.getDorme()){
+			if( !Dramorto && d.getDorme())tabuleiro[d.getY()][d.getX()]='Z';
+			else return;
+		}
 		else{
 			char direc= d.dragaomove();
 			switch (direc){
