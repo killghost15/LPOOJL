@@ -3,18 +3,19 @@ package maze.logic;
 public class Tabuleiro {
 	private char tabuleiro [][];
 	private boolean Dramorto;
-	private boolean morto;
+	private boolean Morto;
 	private Heroi h;
 	private Dragao d;
 	private Saida s;
-	
+	private Espada e;
 	//cria tabuleiro
 	public Tabuleiro(){
 		h=new Heroi(1,1);
 		d=new Dragao(1,3);
 		s=new Saida(9,5);
+		e=new Espada(1,8);
 		Dramorto=false;
-		morto=false;
+		Morto=false;
 		tabuleiro = new char[10][10];
 		
 		for(int i=0; i< 10;i++){
@@ -62,7 +63,7 @@ public class Tabuleiro {
 	public void Morre(){
 		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado())
 			{
-			morto=true;
+			Morto=true;
 			}
 		if ((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && h.Armado())
 		{
@@ -82,7 +83,108 @@ public class Tabuleiro {
 		else return true;
 			
 	}
-	// Movimentos do heroi segundo o input do utilizador
+	public void MoveD(){
+		if (Dramorto || Morto)return;
+		else{
+			char direc= d.dragaomove();
+			switch (direc){
+			case 'w': if(Valida(d.getX(),d.getY()-1)){
+				if(tabuleiro[d.getY()-1][d.getX()]=='E'){
+				tabuleiro[d.getY()][d.getX()]=' ';
+				tabuleiro[d.getY()-1][d.getX()]='F';
+				d.Move(d.getX(), d.getY()-1);
+			}
+				else 
+				{
+					if (d.getX()==e.getX() && d.getY()==e.getY()){
+					tabuleiro[d.getY()][d.getX()]='E';
+					tabuleiro[d.getY()-1][d.getX()]='D';
+					d.Move(d.getX(),d.getY()-1);
+				}
+					else {
+						tabuleiro[d.getY()][d.getX()]=' ';
+						tabuleiro[d.getY()-1][d.getX()]='D';
+						d.Move(d.getX(),d.getY()-1);
+					}
+				}
+			}
+			else MoveD();
+			break;
+			case 'a': if(Valida(d.getX()-1,d.getY())){
+				if(tabuleiro[d.getY()][d.getX()-1]=='E'){
+				tabuleiro[d.getY()][d.getX()]=' ';
+				tabuleiro[d.getY()][d.getX()-1]='F';
+				d.Move(d.getX()-1, d.getY());
+			}
+				else 
+				{
+					if (d.getX()==e.getX() && d.getY()==e.getY()){
+					tabuleiro[d.getY()][d.getX()]='E';
+					tabuleiro[d.getY()][d.getX()-1]='D';
+					d.Move(d.getX()-1,d.getY());
+				}
+					else {
+						tabuleiro[d.getY()][d.getX()]=' ';
+						tabuleiro[d.getY()][d.getX()-1]='D';
+						d.Move(d.getX()-1,d.getY());
+					}
+				}
+			}
+			else MoveD();
+			break;
+			case 's' : 
+				if(Valida(d.getX(),d.getY()+1)){
+				if(tabuleiro[d.getY()+1][d.getX()]=='E'){
+				tabuleiro[d.getY()][d.getX()]=' ';
+				tabuleiro[d.getY()+1][d.getX()]='F';
+				d.Move(d.getX(), d.getY()+1);
+			}
+				else 
+				{
+					if (d.getX()==e.getX() && d.getY()==e.getY()){
+					tabuleiro[d.getY()][d.getX()]='E';
+					tabuleiro[d.getY()+1][d.getX()]='D';
+					d.Move(d.getX(),d.getY()+1);
+				}
+					else {
+						tabuleiro[d.getY()][d.getX()]=' ';
+						tabuleiro[d.getY()+1][d.getX()]='D';
+						d.Move(d.getX(),d.getY()+1);
+					}
+				}
+			}
+			else MoveD();
+			break;
+			case 'd':if(Valida(d.getX()+1,d.getY())){
+				if(tabuleiro[d.getY()][d.getX()+1]=='E'){
+				tabuleiro[d.getY()][d.getX()]=' ';
+				tabuleiro[d.getY()][d.getX()+1]='F';
+				d.Move(d.getX()+1, d.getY());
+			}
+				else 
+				{
+					if (d.getX()==e.getX() && d.getY()==e.getY()){
+					tabuleiro[d.getY()][d.getX()]='E';
+					tabuleiro[d.getY()][d.getX()+1]='D';
+					d.Move(d.getX()+1,d.getY());
+				}
+					else {
+						tabuleiro[d.getY()][d.getX()]=' ';
+						tabuleiro[d.getY()][d.getX()+1]='D';
+						d.Move(d.getX()+1,d.getY());
+					}
+				}
+			}
+			else MoveD();
+			break;
+			case 'm':
+				break;
+			}
+		}
+	}
+	
+	
+	// Move o heroi de acordo com uma direcção direc w para cima,a esquerda,s para baixo, d para a direita
 	public void MoveH(char direc){
 		
 		switch(direc){
@@ -196,8 +298,12 @@ public class Tabuleiro {
 	public boolean getEstadoDragao(){
 		return Dramorto;
 	}
+	//função util para testes de erro 
 	public Heroi getHeroi(){
 		return h;
+	}
+	public Dragao getDragao(){
+		return d;
 	}
 	public boolean Saiu(){
 		if(s.getY()==h.getY() && s.getX()== h.getX())return true;
@@ -205,7 +311,7 @@ public class Tabuleiro {
 		else return false;
 	}
 	public boolean getEstado(){
-		return morto;
+		return Morto;
 	}
 	
 }

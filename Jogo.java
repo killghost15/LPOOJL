@@ -23,6 +23,9 @@ public class Jogo {
 			
 			T.MoveH(resposta);
 			if(T.Saiu())break;
+			
+			T.Morre();
+			T.MoveD();
 			T.Morre();
 			if(T.getEstadoDragao())
 				System.out.println("Aspect of dragon, matáste o temível dragão");
