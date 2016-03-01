@@ -1,16 +1,18 @@
 package maze.logic;
 
 public class Peca {
-	int x;
-	int y;
+	Point p;
 	public Peca(int x,int y){
-		this.x=x;
-		this.y=y;
+		p= new Point(x,y);
+		
 	}
 	public int getX(){
-		return x;
+		return p.getX();
 	}
 	public int getY(){
-		return y;
+		return p.getY();
+	}
+	public Point getPosition(){
+		return p;
 	}
 }

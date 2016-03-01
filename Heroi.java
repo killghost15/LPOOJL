@@ -15,8 +15,7 @@ public class Heroi extends Peca {
 		return Espada;
 	}
 	public void Move(int x,int y){
-		this.x=x;
-		this.y=y;
+		 this.p=new Point(x,y);
 	}
 
 }

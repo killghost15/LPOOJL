@@ -59,6 +59,24 @@ public class Tabuleiro {
 		
 	
 	}
+	// overload do construtor para introduzir uma matriz como tabuleiro.
+	
+	public Tabuleiro(char m[][]){
+		tabuleiro = m;
+		for(int i=0;i<m.length;i++){
+			for (int j=0; j< m[i].length;j++){
+				if (m[i][j]=='H'){
+					h=new Heroi(j,i);
+				}
+				if (m[i][j]=='D')
+					d=new Dragao(j,i);
+				if(m[i][j]=='E')
+					e=new Espada(j,i);
+				if(m[i][j]=='S')
+					s=new Saida(j,i);
+			}
+		}
+	}
 	// Verifica se quando o heroi e o dragao estao juntos e qual morre também verificando se o dragão está a dormir ou não
 	public void Morre(){
 		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado() && !d.getDorme())
@@ -313,6 +331,9 @@ public class Tabuleiro {
 	}
 	public Dragao getDragao(){
 		return d;
+	}
+	public Point getHeroPosition(){
+		return h.getPosition();
 	}
 	// testa se chegaste a saida já depois de matares o dragão pois a função válida() não te deixa ir para saida sem matares o dragão
 	public boolean Saiu(){

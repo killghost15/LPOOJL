@@ -28,8 +28,7 @@ public class Dragao extends Peca {
 	}
 	//Actualiza o valor da posicao do dragao
 	public void Move(int x,int y){
-		this.x = x;
-		this.y = y;
+		 this.p=new Point(x,y);
 	}
 
 
