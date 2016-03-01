@@ -68,6 +68,11 @@ public class Tabuleiro {
 				if (m[i][j]=='H'){
 					h=new Heroi(j,i);
 				}
+				if (m[i][j]=='A')
+				{
+					h=new Heroi(j,i);
+					h.ApanhaEspada();
+				}
 				if (m[i][j]=='D')
 					d=new Dragao(j,i);
 				if(m[i][j]=='E')
@@ -95,7 +100,7 @@ public class Tabuleiro {
 		if (tabuleiro[y][x]=='X')
 			return false;
 		if(tabuleiro[y][x]=='S' && !Dramorto){
-			System.out.println("AINDA NÃO MATOU O DRAGÃO!");
+			System.out.println("AINDA NÃO MATOU O DRAGÃO!"); //talvez eliminar mais tarde
 			return false;
 			}
 		else return true;
