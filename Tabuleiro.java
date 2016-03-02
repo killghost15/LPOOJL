@@ -73,6 +73,10 @@ public class Tabuleiro {
 					h=new Heroi(j,i);
 					h.ApanhaEspada();
 				}
+				if(m[i][j]=='F'){
+					d=new Dragao(j,i);
+					e=new Espada(j,i);
+				}
 				if (m[i][j]=='D')
 					d=new Dragao(j,i);
 				if(m[i][j]=='E')
@@ -118,7 +122,13 @@ public class Tabuleiro {
 			else return;
 		}
 		else{
-			char direc= d.dragaomove();
+		char direc= d.dragaomove();
+		MoveComDirecao(direc);
+		}
+	}
+	public void MoveComDirecao(char direc){
+		
+			
 			switch (direc){
 			case 'w': if(Valida(d.getX(),d.getY()-1)){
 				if(tabuleiro[d.getY()-1][d.getX()]=='E'){
@@ -213,7 +223,6 @@ public class Tabuleiro {
 				break;
 			}
 		}
-	}
 	
 	
 	// Move o heroi de acordo com uma direcção direc w para cima,a esquerda,s para baixo, d para a direita
@@ -351,6 +360,9 @@ public class Tabuleiro {
 	}
 	public void MudaEstadoDragao(boolean estado){
 		Dramorto=estado;
+	}
+	public Point getDrakePosition(){
+		return d.getPosition();
 	}
 	
 }
