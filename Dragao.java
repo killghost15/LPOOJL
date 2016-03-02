@@ -38,7 +38,7 @@ public boolean getDorme(){
 public void Adormece(int prob){
 	Random randomdragao = new Random();
 	int numero=randomdragao.nextInt(99)+1;
-	if (numero < prob)
+	if (numero <= prob)
 		Dorme= true;
 	else 
 		Dorme = false;

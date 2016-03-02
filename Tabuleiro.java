@@ -112,8 +112,8 @@ public class Tabuleiro {
 	}
 	
 	// está preparado para se poder perguntar ao utilizador qual a probabilidade de o dragão adormecer 0-100
-	public void Adormece (){
-		d.Adormece(20);
+	public void Adormece (int prob){
+		d.Adormece(prob);
 	}
 	//Dragão Move-se se não estiver morto ou a dormir, e tbm não se move se o heroi morreu.
 	public void MoveD(){
@@ -363,6 +363,9 @@ public class Tabuleiro {
 	}
 	public Point getDrakePosition(){
 		return d.getPosition();
+	}
+	public Point getSwordPosition(){
+		return e.getPosition();
 	}
 	
 }

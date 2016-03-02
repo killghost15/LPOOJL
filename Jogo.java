@@ -35,7 +35,7 @@ public class Jogo {
 			T.Morre();
 			if(opcao==3 || opcao==2){
 				if(opcao==3)
-					T.Adormece();
+					T.Adormece(20);
 			T.MoveD();
 			}
 			if(T.getEstadoDragao())
