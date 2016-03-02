@@ -85,6 +85,19 @@ public class UnitTests {
 	}
 	
 	@Test
+	public void testMoveHeroToSwordUp(){
+		char [][] m = {{'X', 'X', 'X', 'X', 'X'},
+				{'X', ' ', ' ', ' ', 'S'},
+				{'X', 'E', 'X', ' ', 'X'},
+				{'X', 'H', ' ', 'D', 'X'},
+				{'X', 'X', 'X', 'X', 'X'}};
+		Tabuleiro maze= new Tabuleiro(m);
+		maze.MoveH('w');
+		assertEquals(new Point(1,2),maze.getHeroPosition());
+		assertEquals(true,maze.getHeroi().Armado());
+	}
+	
+	@Test
 	public void testMoveHeroUnarmedToNearDrake(){
 		char [][] m = {{'X', 'X', 'X', 'X', 'X'},
 				{'X', ' ', ' ', 'H', 'S'},
@@ -110,6 +123,20 @@ public class UnitTests {
 		maze.Morre();
 		assertEquals(new Point(3,2),maze.getHeroPosition());
 		assertEquals(true,maze.getEstadoDragao());
+	}
+	
+	@Test
+	public void testChegouASaidaVitorioso(){
+		char [][] m = {{'X', 'X', 'X', 'X', 'X'},
+				{'X', ' ', ' ', 'A', 'S'},
+				{'X', ' ', 'X', ' ', 'X'},
+				{'X', ' ', ' ', ' ', 'X'},
+				{'X', 'X', 'X', 'X', 'X'}};
+		Tabuleiro maze = new Tabuleiro(m);
+		maze.MudaEstadoDragao(true);
+		maze.MoveH('d');
+		assertEquals(new Point(4,1),maze.getHeroPosition());
+		assertEquals(true,maze.Vitoria());
 	}
 	
 	

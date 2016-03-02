@@ -88,7 +88,7 @@ public class Tabuleiro {
 			{
 			Morto=true;
 			}
-		if ((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && h.Armado())
+		if ((tabuleiro[h.getY()-1][h.getX()]=='D'||tabuleiro[h.getY()-1][h.getX()]=='Z' || tabuleiro[h.getY()][h.getX()-1]=='D'||tabuleiro[h.getY()][h.getX()-1]=='Z' || tabuleiro[h.getY()+1][h.getX()]=='D' ||tabuleiro[h.getY()+1][h.getX()]=='Z'||tabuleiro[h.getY()][h.getX()+1]=='Z' || tabuleiro[h.getY()][h.getX()+1]=='D') && h.Armado())
 		{
 			tabuleiro[d.getY()][d.getX()]=' ';
 			Dramorto=true;
@@ -341,13 +341,16 @@ public class Tabuleiro {
 		return h.getPosition();
 	}
 	// testa se chegaste a saida já depois de matares o dragão pois a função válida() não te deixa ir para saida sem matares o dragão
-	public boolean Saiu(){
+	public boolean Vitoria(){
 		if(s.getY()==h.getY() && s.getX()== h.getX())return true;
 		
 		else return false;
 	}
 	public boolean getEstado(){
 		return Morto;
+	}
+	public void MudaEstadoDragao(boolean estado){
+		Dramorto=estado;
 	}
 	
 }

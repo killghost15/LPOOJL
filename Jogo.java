@@ -30,7 +30,7 @@ public class Jogo {
 			}
 			
 			T.MoveH(resposta);
-			if(T.Saiu())break;
+			if(T.Vitoria())break;
 			
 			T.Morre();
 			if(opcao==3 || opcao==2){
