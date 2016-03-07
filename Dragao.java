@@ -17,11 +17,11 @@ public class Dragao extends Peca {
 		
 		if(numero < 20)
 			return 'w';
-		else if(numero > 20 && numero < 40)
+		else if(numero >= 20 && numero < 40)
 			return 'a';
-		else if(numero > 40 && numero < 60)
+		else if(numero >= 40 && numero < 60)
 			return 'd';
-		else if(numero > 60 && numero < 80)
+		else if(numero >= 60 && numero < 80)
 			return 's';
 		else
 			return 'm';

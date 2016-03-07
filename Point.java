@@ -18,4 +18,7 @@ public boolean equals(Object z){
 		return true;
 	else return false;
 }
+public boolean adjacentTo(Point p) {
+	return Math.abs(p.x - this.x) + Math.abs(p.y - this.y) == 1;
+}
 }
