@@ -17,12 +17,7 @@ public class UnitTests {
 
 	
 	
-	@Test
-	public void testOtherWayToStartMaze(){
-		Tabuleiro maze=new Tabuleiro();
-		assertEquals(false,maze.getEstado());
-		assertEquals(false,maze.getEstadoDragao());
-	}
+	
 	@Test
 	public void testMoveHeroToFreeCellUp(){
 		char [][] m = {{'X', 'X', 'X', 'X', 'X'},

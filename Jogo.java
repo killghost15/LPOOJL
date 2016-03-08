@@ -6,13 +6,27 @@ import maze.logic.*;
 
 public class Jogo {
 	public static void main(String args[]){
-		Tabuleiro T = new Tabuleiro();
+		Scanner r=new Scanner(System.in);
+		System.out.print("Dimensão do tabuleiro a gerar(tem de ser maior ou igual a 5 e impar, se introduzir um numero par será transformado no impar anterior, se for menor que 5 será transformado em 5):");
+		int dim=r.nextInt();
+		if (dim<5)
+			dim=5;
+		if(dim% 2==0)
+			dim=dim-1;
+		char [][] m;
+		IMazeBuilder builder = new MazeBuilder();
+		m=builder.buildMaze(dim);
+		
+		Tabuleiro T = new Tabuleiro(m);
+		
+		
+		r.reset();
 		System.out.print("Que tipo de estrategia deseja:"+"\n");
 		System.out.println("1:Dragão parado");
 		System.out.println("2:Dragão a mover-se aleatoriamente");
 		System.out.println("3:Dragão a mover-se aleatoriamente e a adormecer aleatoriamente");
 		System.out.print("Opção: ");
-		Scanner r=new Scanner(System.in);
+
 		int opcao=r.nextInt();
 		r.reset();
 		

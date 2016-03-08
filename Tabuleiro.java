@@ -9,7 +9,7 @@ public class Tabuleiro {
 	private Saida s;
 	private Espada e;
 	//cria tabuleiro(labirinto)
-	public Tabuleiro(){
+/*	public Tabuleiro(){
 		h=new Heroi(1,1);
 		d=new Dragao(1,3);
 		s=new Saida(9,5);
@@ -58,8 +58,8 @@ public class Tabuleiro {
 		}
 		
 	
-	}
-	// overload do construtor para introduzir uma matriz como tabuleiro.
+	}*/
+	// construtor para introduzir uma matriz como tabuleiro.
 	
 	public Tabuleiro(char m[][]){
 		tabuleiro = m;
@@ -328,8 +328,8 @@ public class Tabuleiro {
 		}
 	//Desenha o Tabuleiro
 	public void DesenhaTabuleiro(){
-		for(int i=0; i< 10;i++){
-			for(int j=0; j<10;j++){
+		for(int i=0; i<tabuleiro.length;i++){
+			for(int j=0; j<tabuleiro.length;j++){
 				System.out.print(tabuleiro[i][j]+ " ");
 			}
 			System.out.print("\n");
