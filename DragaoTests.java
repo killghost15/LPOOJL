@@ -16,8 +16,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('a');
-		assertEquals(new Point(2,3),maze.getDrakePosition());
+		maze.MoveComDirecao('a',maze.getDragao(0));
+		assertEquals(new Point(2,3),maze.getDrakePosition(0));
 	}
 	
 	@Test
@@ -29,8 +29,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('d');
-		assertEquals(new Point(3,3),maze.getDrakePosition());
+		maze.MoveComDirecao('d',maze.getDragao(0));
+		assertEquals(new Point(3,3),maze.getDrakePosition(0));
 	}
 	
 	@Test
@@ -42,8 +42,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('w');
-		assertEquals(new Point(3,2),maze.getDrakePosition());
+		maze.MoveComDirecao('w',maze.getDragao(0));
+		assertEquals(new Point(3,2),maze.getDrakePosition(0));
 	}
 	@Test
 	public void testMoveDDown() {
@@ -54,8 +54,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('s');
-		assertEquals(new Point(1,2),maze.getDrakePosition());
+		maze.MoveComDirecao('s',maze.getDragao(0));
+		assertEquals(new Point(1,2),maze.getDrakePosition(0));
 	}
 	//Movimentação que no random permite voltar a fazer o random para o drake se mexer
 	@Test
@@ -67,8 +67,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('a');
-		assertEquals(true,(maze.getDragao().getPosition().equals(new Point(1,1)))||maze.getDragao().getPosition().equals(new Point(2,1))||maze.getDragao().getPosition().equals(new Point(1,2)));
+		maze.MoveComDirecao('a',maze.getDragao(0));
+		assertEquals(true,(maze.getDragao(0).getPosition().equals(new Point(1,1)))||maze.getDragao(0).getPosition().equals(new Point(2,1))||maze.getDragao(0).getPosition().equals(new Point(1,2)));
 	}
 	@Test
 	public void testMoveDDownOverSword() {
@@ -79,8 +79,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('s');
-		assertEquals(new Point(1,3),maze.getDrakePosition());
+		maze.MoveComDirecao('s',maze.getDragao(0));
+		assertEquals(new Point(1,3),maze.getDrakePosition(0));
 		}
 	
 	@Test
@@ -92,8 +92,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('d');
-		assertEquals(new Point(2,3),maze.getDrakePosition());
+		maze.MoveComDirecao('d',maze.getDragao(0));
+		assertEquals(new Point(2,3),maze.getDrakePosition(0));
 		assertEquals(new Point(1,3),maze.getSwordPosition());
 		}
 	@Test
@@ -105,8 +105,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('a');
-		assertEquals(new Point(1,3),maze.getDrakePosition());
+		maze.MoveComDirecao('a',maze.getDragao(0));
+		assertEquals(new Point(1,3),maze.getDrakePosition(0));
 		assertEquals(new Point(2,3),maze.getSwordPosition());
 		}
 	
@@ -119,8 +119,8 @@ public class DragaoTests {
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze=new Tabuleiro(m1);
 		
-		maze.MoveComDirecao('w');
-		assertEquals(new Point(1,2),maze.getDrakePosition());
+		maze.MoveComDirecao('w',maze.getDragao(0));
+		assertEquals(new Point(1,2),maze.getDrakePosition(0));
 		assertEquals(new Point(1,3),maze.getSwordPosition());
 		}
 	
@@ -136,9 +136,9 @@ public class DragaoTests {
 		
 		
 		maze.Adormece(100); //equivalente a 100% probabilidade de adormecer
-		maze.MoveD();
-		assertEquals(new Point(1,1),maze.getDrakePosition());
-		assertEquals(true,maze.getDragao().getDorme());
+		maze.MoveD(maze.getDragao(0));
+		assertEquals(new Point(1,1),maze.getDrakePosition(0));
+		assertEquals(true,maze.getDragao(0).getDorme());
 		}
 	
 

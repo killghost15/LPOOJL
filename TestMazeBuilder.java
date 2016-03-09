@@ -86,7 +86,7 @@ public class TestMazeBuilder {
 	
 	@Test
 	public void testRandomMazeGenerator() throws IllegalArgumentException {
-		int numMazes =1; // number of mazes to generate and test // o meu computador só com 5 ocupa o CPU a 40% com mais de 5 o computador para, lamento se coseguirem testar com maior parabéns //TODO
+		int numMazes =3; // number of mazes to generate and test // o meu computador só com 5 ocupa o CPU a 40% com mais de 5 o computador para, lamento se coseguirem testar com maior parabéns //TODO
 		int maxMazeSize = 101; // can change to any odd number >= 5
 		int minMazeSize = 5;
 		

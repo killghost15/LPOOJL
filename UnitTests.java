@@ -129,7 +129,7 @@ public class UnitTests {
 		maze.MoveH('s');
 		maze.Morre();
 		assertEquals(new Point(3,2),maze.getHeroPosition());
-		assertEquals(true,maze.getEstadoDragao());
+		assertEquals(true,maze.AllDead());
 	}
 	
 	@Test
@@ -140,7 +140,6 @@ public class UnitTests {
 				{'X', ' ', ' ', ' ', 'X'},
 				{'X', 'X', 'X', 'X', 'X'}};
 		Tabuleiro maze = new Tabuleiro(m);
-		maze.MudaEstadoDragao(true);
 		maze.MoveH('d');
 		assertEquals(new Point(4,1),maze.getHeroPosition());
 		assertEquals(true,maze.Vitoria());
@@ -155,7 +154,7 @@ public class UnitTests {
 		Tabuleiro maze = new Tabuleiro(m);
 		maze.MoveH('d');
 		assertEquals(new Point(3,1),maze.getHeroPosition());
-		assertEquals(false,maze.getEstadoDragao());
+		assertEquals(false,maze.getDragao(0).getDramorto());
 		assertEquals(false,maze.Vitoria());
 
 	}
@@ -169,7 +168,7 @@ public class UnitTests {
 		Tabuleiro maze = new Tabuleiro(m);
 		maze.MoveH('d');
 		assertEquals(new Point(3,1),maze.getHeroPosition());
-		assertEquals(false,maze.getEstadoDragao());
+		assertEquals(false,maze.AllDead());
 		assertEquals(false,maze.Vitoria());
 		assertEquals(true,maze.getHeroi().Armado());
 

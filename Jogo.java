@@ -1,4 +1,5 @@
 package maze.cli;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import maze.logic.*;
@@ -50,9 +51,10 @@ public class Jogo {
 			if(opcao==3 || opcao==2){
 				if(opcao==3)
 					T.Adormece(20);
-			T.MoveD();
+				for(Iterator<Dragao> it=T.getDrakeList().iterator();it.hasNext();)
+					T.MoveD(it.next());
 			}
-			if(T.getEstadoDragao())
+			if(T.AllDead())
 				System.out.println("Aspect of dragon, matáste o temível dragão");
 			T.DesenhaTabuleiro();
 			T.Morre();

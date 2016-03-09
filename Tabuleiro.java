@@ -1,11 +1,14 @@
 package maze.logic;
 
+
+import java.util.LinkedList;
+
+
 public class Tabuleiro {
 	private char tabuleiro [][];
-	private boolean Dramorto;
 	private boolean Morto;
 	private Heroi h;
-	private Dragao d;
+	private LinkedList<Dragao> l;
 	private Saida s;
 	private Espada e;
 	//cria tabuleiro(labirinto)
@@ -63,6 +66,8 @@ public class Tabuleiro {
 	
 	public Tabuleiro(char m[][]){
 		tabuleiro = m;
+		Morto=false;
+		l=new LinkedList<Dragao>();
 		for(int i=0;i<m.length;i++){
 			for (int j=0; j< m[i].length;j++){
 				if (m[i][j]=='H'){
@@ -74,11 +79,15 @@ public class Tabuleiro {
 					h.ApanhaEspada();
 				}
 				if(m[i][j]=='F'){
-					d=new Dragao(j,i);
+					Dragao d2=new Dragao(j,i);
+					l.add(d2);
 					e=new Espada(j,i);
 				}
-				if (m[i][j]=='D')
-					d=new Dragao(j,i);
+				if (m[i][j]=='D'){
+					Dragao d=null;
+					d = new Dragao(j,i);
+					l.add(d);
+					}
 				if(m[i][j]=='E')
 					e=new Espada(j,i);
 				if(m[i][j]=='S')
@@ -88,14 +97,23 @@ public class Tabuleiro {
 	}
 	// Verifica se quando o heroi e o dragao estao juntos e qual morre também verificando se o dragão está a dormir ou não
 	public void Morre(){
-		if((tabuleiro[h.getY()-1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()-1]=='D' || tabuleiro[h.getY()+1][h.getX()]=='D' || tabuleiro[h.getY()][h.getX()+1]=='D') && !h.Armado() && !d.getDorme())
+		
+		if (!h.Armado()){
+		for(int i=0;i<l.size();i++)
 			{
+			if(h.getPosition().adjacentTo(l.get(i).getPosition()) && !l.get(i).getDorme() && !l.get(i).getDramorto() ){
 			Morto=true;
 			}
-		if ((tabuleiro[h.getY()-1][h.getX()]=='D'||tabuleiro[h.getY()-1][h.getX()]=='Z' || tabuleiro[h.getY()][h.getX()-1]=='D'||tabuleiro[h.getY()][h.getX()-1]=='Z' || tabuleiro[h.getY()+1][h.getX()]=='D' ||tabuleiro[h.getY()+1][h.getX()]=='Z'||tabuleiro[h.getY()][h.getX()+1]=='Z' || tabuleiro[h.getY()][h.getX()+1]=='D') && h.Armado())
+			}
+		}
+		else{
+			for(int i=0;i<l.size();i++)
 		{
-			tabuleiro[d.getY()][d.getX()]=' ';
-			Dramorto=true;
+			if(h.getPosition().adjacentTo(l.get(i).getPosition())){
+			tabuleiro[l.get(i).getPosition().getY()][l.get(i).getPosition().getX()]=' ';
+			l.get(i).Morre();
+			}
+		}
 		}
 		
 	}
@@ -103,30 +121,37 @@ public class Tabuleiro {
 	public boolean Valida(int x,int y){
 		if (tabuleiro[y][x]=='X')
 			return false;
-		if(tabuleiro[y][x]=='S' && !Dramorto){
-			System.out.println("AINDA NÃO MATOU O DRAGÃO!"); //talvez eliminar mais tarde
+		if(tabuleiro[y][x]=='S' && !AllDead()){
+			System.out.println("AINDA NÃO MATOU Pelo menos um DRAGÃO!"); //talvez eliminar mais tarde
 			return false;
 			}
 		else return true;
 			
 	}
 	
+	public boolean AllDead() {
+		for(int i=0;i<l.size();i++)
+			if(!l.get(i).getDramorto())
+				return false;
+		return true;
+	}
 	// está preparado para se poder perguntar ao utilizador qual a probabilidade de o dragão adormecer 0-100
 	public void Adormece (int prob){
-		d.Adormece(prob);
+		for(int i=0;i<l.size();i++)
+			l.get(i).Adormece(prob);
 	}
 	//Dragão Move-se se não estiver morto ou a dormir, e tbm não se move se o heroi morreu.
-	public void MoveD(){
-		if (Dramorto || Morto|| d.getDorme()){
-			if( !Dramorto && d.getDorme())tabuleiro[d.getY()][d.getX()]='Z';
+	public void MoveD(Dragao d){
+		if (d.getDramorto() || Morto|| d.getDorme()){
+			if( !d.getDramorto() && d.getDorme())tabuleiro[d.getY()][d.getX()]='Z';
 			else return;
 		}
 		else{
 		char direc= d.dragaomove();
-		MoveComDirecao(direc);
+		MoveComDirecao(direc,d);
 		}
 	}
-	public void MoveComDirecao(char direc){
+	public void MoveComDirecao(char direc,Dragao d){
 		
 			
 			switch (direc){
@@ -150,7 +175,7 @@ public class Tabuleiro {
 					}
 				}
 			}
-			else MoveD();
+			else MoveD(d);
 			break;
 			case 'a': if(Valida(d.getX()-1,d.getY())){
 				if(tabuleiro[d.getY()][d.getX()-1]=='E'){
@@ -172,7 +197,7 @@ public class Tabuleiro {
 					}
 				}
 			}
-			else MoveD();
+			else MoveD(d);
 			break;
 			case 's' : 
 				if(Valida(d.getX(),d.getY()+1)){
@@ -195,7 +220,7 @@ public class Tabuleiro {
 					}
 				}
 			}
-			else MoveD();
+			else MoveD(d);
 			break;
 			case 'd':if(Valida(d.getX()+1,d.getY())){
 				if(tabuleiro[d.getY()][d.getX()+1]=='E'){
@@ -217,7 +242,7 @@ public class Tabuleiro {
 					}
 				}
 			}
-			else MoveD();
+			else MoveD(d);
 			break;
 			case 'm':
 				break;
@@ -336,15 +361,12 @@ public class Tabuleiro {
 		}
 	}
 	// Verifica o estado de vida do dragão se estiver morto= true
-	public boolean getEstadoDragao(){
-		return Dramorto;
-	}
 	//funções uteis para testes de erro 
 	public Heroi getHeroi(){
 		return h;
 	}
-	public Dragao getDragao(){
-		return d;
+	public Dragao getDragao(int i){
+		return l.get(i);
 	}
 	public Point getHeroPosition(){
 		return h.getPosition();
@@ -358,14 +380,13 @@ public class Tabuleiro {
 	public boolean getEstado(){
 		return Morto;
 	}
-	public void MudaEstadoDragao(boolean estado){
-		Dramorto=estado;
-	}
-	public Point getDrakePosition(){
-		return d.getPosition();
+	public Point getDrakePosition(int i){
+		return l.get(i).getPosition();
 	}
 	public Point getSwordPosition(){
 		return e.getPosition();
 	}
-	
+	public LinkedList<Dragao> getDrakeList(){
+		return l;
+	}
 }

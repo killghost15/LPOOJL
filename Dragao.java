@@ -4,9 +4,11 @@ import java.util.Random;
 
 public class Dragao extends Peca {
 	boolean Dorme;
+	boolean Dramorto;
 	public Dragao(int x,int y){
 		super(x,y);
 		Dorme=false;
+		Dramorto=false;
 		
 	}
 	
@@ -31,7 +33,9 @@ public class Dragao extends Peca {
 		 this.p=new Point(x,y);
 	}
 
-
+public void Morre(){
+	this.Dramorto=true;
+}
 public boolean getDorme(){
 	return Dorme;
 }
@@ -42,5 +46,8 @@ public void Adormece(int prob){
 		Dorme= true;
 	else 
 		Dorme = false;
+}
+public boolean getDramorto(){
+	return Dramorto;
 }
 }
