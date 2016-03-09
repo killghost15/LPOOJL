@@ -6,7 +6,7 @@ import java.util.Stack;
 public class MazeBuilder implements IMazeBuilder {
 
 	@Override
-	public char[][] buildMaze(int size) throws IllegalArgumentException {
+	public char[][] buildMaze(int size,int numD) throws IllegalArgumentException {
 		if (size % 2 ==0)throw new IllegalArgumentException();
 		char [][] maze= new char[size][size];
 		for(int i=0;i<maze.length;i++)
@@ -128,6 +128,7 @@ public class MazeBuilder implements IMazeBuilder {
 		h2=r.nextInt(size-1);
 		}
 		maze[h2][h1]='H';
+		for(int i=0;i < numD;i++){
 		int d1=0;
 		int d2=0;
 		
@@ -137,16 +138,16 @@ public class MazeBuilder implements IMazeBuilder {
 		d2=r.nextInt(size-1);
 		}
 		maze[d2][d1]='D';
-		
+		}
 		int e1=0;
 		int e2=0;
-		
-		while(maze[e2][e1]!=' ')
+		while(maze[e2][e1]!=' ' || !checkSwordReachable(maze,new Point(e1,e2)))
 		{
-			e1=r.nextInt(size-1);
-			e2=r.nextInt(size-1);
+			e1=r.nextInt(maze.length-1);
+			e2=r.nextInt(maze.length-1);
 		}
 		maze[e2][e1]='E';
+		
 		return maze;	
 		}
 	
@@ -204,6 +205,38 @@ public class MazeBuilder implements IMazeBuilder {
 			return 'a';
 		
 	}
-
+	
+	// métodos fornecidos para o test do mazebuilder que reutilizámos para ao posicionar a espada, posicionar de maneira que não fique um dragão a bloquear o caminho logo pk isso tornava alguns labirintos, no modo dragao parado, impossiveis 
+	private boolean checkSwordReachable(char [][] maze,Point p) {
+	
+		boolean [][] visited = new boolean[maze.length] [maze.length];
+		visit(maze, p.getY(), p.getX(), visited);
+		for (int i = 0; i < maze.length; i++)
+			for (int j = 0; j < maze.length; j++){
+		
+			if (maze[i][j] == 'H' && !visited[i][j])
+					return false;
+				}
+		
+		return true; 
+	}
+	
+	// auxiliary method used by checkExitReachable
+	// marks a cell as visited and proceeds recursively to its neighbors
+	private void visit(char[][] m, int i, int j, boolean [][] visited) {
+		if (i < 0 || i >= m.length || j < 0 || j >= m.length)
+			return;
+		if(m[i][j]=='H'){
+			visited[i][j]=true;
+			return;
+		}
+		if (m[i][j] == 'X' || visited[i][j] || m[i][j]=='D')
+			return;
+		visited[i][j] = true;
+		visit(m, i-1, j, visited);
+		visit(m, i+1, j, visited);
+		visit(m, i, j-1, visited);
+		visit(m, i, j+1, visited);
+	}
 
 }
