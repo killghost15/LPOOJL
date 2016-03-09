@@ -389,4 +389,7 @@ public class Tabuleiro {
 	public LinkedList<Dragao> getDrakeList(){
 		return l;
 	}
+	public void AddDrake(Dragao d){
+		l.add(d);
+	}
 }

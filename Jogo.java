@@ -1,5 +1,6 @@
 package maze.cli;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 import maze.logic.*;
@@ -20,7 +21,23 @@ public class Jogo {
 		
 		Tabuleiro T = new Tabuleiro(m);
 		
-		
+		r.reset();
+		System.out.print("Contra quantos dragões deseja jogar: " );
+		int numD=r.nextInt();
+		numD=numD-1;
+		for(int i=0; i<numD;i++){
+			int x=0;
+			int y=0;
+			Random n=new Random();
+			while(m[y][x]!=' ' || (new Point(x,y).adjacentTo(T.getHeroPosition())) ){
+				
+				x=n.nextInt(dim-1);
+				y=n.nextInt(dim-1);
+				
+			}
+			m[y][x]='D';
+		}
+		T= new Tabuleiro(m);
 		r.reset();
 		System.out.print("Que tipo de estrategia deseja:"+"\n");
 		System.out.println("1:Dragão parado");
@@ -46,11 +63,11 @@ public class Jogo {
 			
 			T.MoveH(resposta);
 			if(T.Vitoria())break;
+			if(opcao==3)
+				T.Adormece(20);
 			
 			T.Morre();
 			if(opcao==3 || opcao==2){
-				if(opcao==3)
-					T.Adormece(20);
 				for(Iterator<Dragao> it=T.getDrakeList().iterator();it.hasNext();)
 					T.MoveD(it.next());
 			}
