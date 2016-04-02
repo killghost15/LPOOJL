@@ -21,6 +21,8 @@ private BufferedImage ontop;
 private BufferedImage sleep;
 private BufferedImage armed;
 private BufferedImage empty;
+private BufferedImage victory;
+private Object option;
 private int cellWidth=30;
 private int cellHeight=30;
 private int x,y;
@@ -28,8 +30,9 @@ private Tabuleiro T;
 /**
 	 * Create the panel.
 	 */
-	public GameUi( char [][] maze) {
+	public GameUi( char [][] maze,Object option) {
 		T= new Tabuleiro(maze);
+		this.option=option;
 		try {
 			sword =  ImageIO.read(new File("sword.jpg"));
 		} catch (IOException e) {
@@ -75,6 +78,11 @@ private Tabuleiro T;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			victory =  ImageIO.read(new File("victory.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		this.addKeyListener(this);
 		}
@@ -83,21 +91,62 @@ private Tabuleiro T;
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){
 		case KeyEvent.VK_LEFT:
+			if(T.getEstado()||T.Vitoria())break;
+			T.MoveH('a');
+			T.Morre();
+			if (option=="A mover-se e a adormecer")
+				T.Adormece(20);
+			if(option=="A mover-se aleatoriamente"||option== "A mover-se e a adormecer"){
+				for(int i=0;i< T.getDrakeList().size();i++)
+					T.MoveD(T.getDrakeList().get(i));
+			}
+			T.Morre();
 			repaint();
 			break;
 			
 		case KeyEvent.VK_RIGHT: 
-			//System.out.println("x=" + x);
+			if(T.getEstado()||T.Vitoria())break;
+			T.MoveH('d');
+			T.Morre();
+			if (option=="A mover-se e a adormecer")
+				T.Adormece(20);
+			if(option=="A mover-se aleatoriamente"||option== "A mover-se e a adormecer"){
+				for(int i=0;i< T.getDrakeList().size();i++)
+					T.MoveD(T.getDrakeList().get(i));
+			}
+			T.Morre();
 			repaint();
 			break;
 
 		case KeyEvent.VK_UP:
+			if(T.getEstado()||T.Vitoria())break;
+			T.MoveH('w');
+			T.Morre();
+			if (option=="A mover-se e a adormecer")
+				T.Adormece(20);
+			if(option=="A mover-se aleatoriamente"||option== "A mover-se e a adormecer"){
+				for(int i=0;i< T.getDrakeList().size();i++)
+					T.MoveD(T.getDrakeList().get(i));
+			}
+			T.Morre();
 			repaint();
 			break;
 
 		case KeyEvent.VK_DOWN:
+			if(T.getEstado()||T.Vitoria())break;
+			T.MoveH('s');
+			T.Morre();
+			if (option=="A mover-se e a adormecer")
+				T.Adormece(20);
+			if(option=="A mover-se aleatoriamente"||option== "A mover-se e a adormecer"){
+				for(int i=0;i< T.getDrakeList().size();i++)
+					T.MoveD(T.getDrakeList().get(i));
+			}
+			T.Morre();
 			repaint();
 			break;
+		case KeyEvent.VK_ESCAPE:
+			System.exit(0);
 		}
 		
 		
@@ -120,6 +169,10 @@ private Tabuleiro T;
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);// clears the backgorund ...
 		x=0;y=0;
+		if(T.Vitoria()){g.drawImage(victory,x,y, x+victory.getWidth(),y+victory.getHeight(),0,0,victory.getWidth(),victory.getHeight(), null);
+		//this.removeKeyListener(this);
+		return;
+		}
 		for(int i=0; i< T.getLabirinto().length;i++){
 			x=0;
 			for(int j=0;j<T.getLabirinto().length;j++){
