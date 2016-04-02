@@ -365,6 +365,9 @@ public class Tabuleiro {
 	public Heroi getHeroi(){
 		return h;
 	}
+	public char [][] getLabirinto(){
+		return tabuleiro;
+	}
 	public Dragao getDragao(int i){
 		return l.get(i);
 	}
@@ -392,4 +395,14 @@ public class Tabuleiro {
 	public void AddDrake(Dragao d){
 		l.add(d);
 	}
+	public String toString(){
+		String s="";
+		for(int i=0; i<tabuleiro.length;i++){
+			for(int j=0; j<tabuleiro.length;j++){
+				s=s+tabuleiro[i][j]+" ";
+			}
+		s=s+"\n";
+		}
+		return s;
+		}
 }
