@@ -2,7 +2,12 @@ package maze.logic;
 
 
 import java.util.LinkedList;
-
+/**
+ * 
+ * Tabuleiro.java
+ * ao meu jogo chamei de Tabuleiro a class que cria o labirinto e depois efectua as movimentações e gestão do estado de jogo
+ *
+ */
 
 public class Tabuleiro {
 	private char tabuleiro [][];
@@ -63,7 +68,11 @@ public class Tabuleiro {
 	
 	}*/
 	// construtor para introduzir uma matriz como tabuleiro.
-	
+/**
+ * 	Inicializa o jogo, cria um heroi,uma espada, uma saida ,um numero de dragões e coloca-os na estrutura de dados linked List l
+ * @param m matriz de chars que é gerada pelo gerador de labirinto
+ * @see MazeBuilder
+ */
 	public Tabuleiro(char m[][]){
 		tabuleiro = m;
 		Morto=false;
@@ -95,7 +104,10 @@ public class Tabuleiro {
 			}
 		}
 	}
-	// Verifica se quando o heroi e o dragao estao juntos e qual morre também verificando se o dragão está a dormir ou não
+	/**
+	 *  Verifica se quando o heroi e o dragao estao juntos e qual morre também verificando se o dragão está a dormir ou não
+	 *	
+	 */
 	public void Morre(){
 		
 		if (!h.Armado()){
@@ -117,7 +129,12 @@ public class Tabuleiro {
 		}
 		
 	}
-	// Verfica se a posição nao e uma parede e não permite ao heroi ir para a saida sem matar o dragão
+	/**
+	 *  Verfica se a posição nao e uma parede e não permite ao heroi ir para a saida sem matar o dragão
+	 * @param x coordenada horizontal da posição
+	 * @param y coordenada vertical da posição
+	 * @return true se for uma movimentação valida 
+	 */
 	public boolean Valida(int x,int y){
 		if (tabuleiro[y][x]=='X')
 			return false;
@@ -128,19 +145,29 @@ public class Tabuleiro {
 		else return true;
 			
 	}
-	
+	/**
+	 * Verifica se os Dragões estão todos mortos ou se algum ainda está vivo
+	 * @return true se estiverem todos os dragões mortos
+	 */
 	public boolean AllDead() {
 		for(int i=0;i<l.size();i++)
 			if(!l.get(i).getDramorto())
 				return false;
 		return true;
 	}
-	// está preparado para se poder perguntar ao utilizador qual a probabilidade de o dragão adormecer 0-100
+	/**
+	 * está preparado para se poder perguntar ao utilizador qual a probabilidade de o dragão adormecer 0-100
+	 * @param prob probabilidade de adormecer
+	 */
 	public void Adormece (int prob){
 		for(int i=0;i<l.size();i++)
 			l.get(i).Adormece(prob);
 	}
-	//Dragão Move-se se não estiver morto ou a dormir, e tbm não se move se o heroi morreu.
+	/**
+	 * Dragão Move-se se não estiver morto ou a dormir, e tbm não se move se o heroi morreu.
+	 * Chama a função MoveComDirecção
+	 * @param d Dragão 
+	 */
 	public void MoveD(Dragao d){
 		if (d.getDramorto() || Morto|| d.getDorme()){
 			if( !d.getDramorto() && d.getDorme())tabuleiro[d.getY()][d.getX()]='Z';
@@ -151,6 +178,12 @@ public class Tabuleiro {
 		MoveComDirecao(direc,d);
 		}
 	}
+	/**
+	 * Tenta Mover na determinada direcção direc se não for uma direcção válida volta para a função MoveD() que gera outra direcção de maneira que só fique no mesmo sitio se sair a direcção manter 
+	 * @param direc char direcção
+	 * @param d Dragão 
+	 * 
+	 */
 	public void MoveComDirecao(char direc,Dragao d){
 		
 			
@@ -250,7 +283,10 @@ public class Tabuleiro {
 		}
 	
 	
-	// Move o heroi de acordo com uma direcção direc w para cima,a esquerda,s para baixo, d para a direita
+	/**
+	 * Move o heroi de acordo com uma direcção direc w para cima,a esquerda,s para baixo, d para a direita se não for valida fica no mesmo sitio
+	 * @param direc char direcção
+	 */
 	public void MoveH(char direc){
 		
 		switch(direc){
@@ -351,7 +387,9 @@ public class Tabuleiro {
 		}
 		
 		}
-	//Desenha o Tabuleiro
+	/**
+	 * Desenha o labirinto em modo de texto 
+	 */
 	public void DesenhaTabuleiro(){
 		for(int i=0; i<tabuleiro.length;i++){
 			for(int j=0; j<tabuleiro.length;j++){
@@ -360,41 +398,86 @@ public class Tabuleiro {
 			System.out.print("\n");
 		}
 	}
-	// Verifica o estado de vida do dragão se estiver morto= true
 	//funções uteis para testes de erro 
+	/**
+	 * Retorna heroi
+	 * @see Heroi
+	 * @return h heroi deste jogo
+	 */
 	public Heroi getHeroi(){
 		return h;
 	}
+	/**
+	 * Retorna a matriz do labirinto
+	 * @return tabuleiro matriz 
+	 */
 	public char [][] getLabirinto(){
 		return tabuleiro;
 	}
+	/**
+	 * Retorna o Dragão da lista de Dragões com indice i
+	 * @param i indice
+	 * @return Dragão
+	 */
 	public Dragao getDragao(int i){
 		return l.get(i);
 	}
+	/** 
+	 * Retorna um objecto point da posição de heroi
+	 * @see Point
+	 * @return Point
+	 */
 	public Point getHeroPosition(){
 		return h.getPosition();
 	}
-	// testa se chegaste a saida já depois de matares o dragão pois a função válida() não te deixa ir para saida sem matares o dragão
+	/**
+	 *  testa se chegaste a saida já depois de matares o dragão pois a função válida() não te deixa ir para saida sem matares o(s) dragão(ões)
+	 * @return true se ganhaste se não retorna
+	 */
 	public boolean Vitoria(){
 		if(s.getY()==h.getY() && s.getX()== h.getX())return true;
 		
 		else return false;
 	}
+	/**
+	 * Retorna o estado de heroi
+	 * @return true se o heroi está morto
+	 */
 	public boolean getEstado(){
 		return Morto;
 	}
+	/**
+	 * Retorna um objecto do tipo point que dá a posição do Dragão de indice i
+	 * @param i indice
+	 * @return Point
+	 */
 	public Point getDrakePosition(int i){
 		return l.get(i).getPosition();
 	}
+	/**
+	 * Retorna um objecto do tipo Point que dá a posição da espada
+	 * @return Point
+	 */
 	public Point getSwordPosition(){
 		return e.getPosition();
 	}
+	/**
+	 * Retorna a lista de Dragões
+	 * @return LinkedList<Dragao>
+	 */
 	public LinkedList<Dragao> getDrakeList(){
 		return l;
 	}
+	/**
+	 * Adiciona o o dragão à LinkedList
+	 * @param d
+	 */
 	public void AddDrake(Dragao d){
 		l.add(d);
 	}
+	/**
+	 * Método toString do labirinto
+	 */
 	public String toString(){
 		String s="";
 		for(int i=0; i<tabuleiro.length;i++){

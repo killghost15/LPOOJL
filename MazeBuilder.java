@@ -2,7 +2,12 @@ package maze.logic;
 
 import java.util.Random;
 import java.util.Stack;
-
+/**
+ * 
+ * MazeBuilder.java
+ * Gerador de labirintos
+ *
+ */
 public class MazeBuilder implements IMazeBuilder {
 
 	@Override
@@ -151,7 +156,12 @@ public class MazeBuilder implements IMazeBuilder {
 		return maze;	
 		}
 	
-	//vê se existem celulas q ainda n foram visitadas adjancentes à Cell
+	/**
+	 * vê se existem celulas q ainda n foram visitadas adjancentes à Cell
+	 * @param Cell celula 
+	 * @param a matriz onde a celula está
+	 * @return booleano true se ainda n visitou alguma das celulas adjacentes se não retorna false
+	 */
 	public boolean AvailableCells(Point Cell,boolean [][]a){
 		if(Cell.getX()+1==a.length||Cell.getX()==0 ||Cell.getY()+1==a.length||Cell.getY()==0){
 			if(Cell.getY()+1==a.length && Cell.getX()+1==a.length){
@@ -191,6 +201,10 @@ public class MazeBuilder implements IMazeBuilder {
 		return false;
 		
 	}
+	/**
+	 * randomiza a geração de labirinto ao criar uma direcção aleatória
+	 * @return char direcção
+	 */ 
 	public char RandomDir(){
 		int num;
 		Random r=new Random();
@@ -206,7 +220,12 @@ public class MazeBuilder implements IMazeBuilder {
 		
 	}
 	
-	// métodos fornecidos para o test do mazebuilder que reutilizámos para ao posicionar a espada, posicionar de maneira que não fique um dragão a bloquear o caminho logo pk isso tornava alguns labirintos, no modo dragao parado, impossiveis 
+	/**
+	 * métodos fornecidos para o test do mazebuilder que reutilizámos para ao posicionar a espada, posicionar de maneira que não fique um dragão a bloquear o caminho logo pk isso tornava alguns labirintos, no modo dragao parado, impossiveis
+	 * @param maze matriz do labirinto
+	 * @param p ponto 
+	 * @return booleano true se a espada é atingivel sem ter um dragão no caminho
+	 */
 	private boolean checkSwordReachable(char [][] maze,Point p) {
 	
 		boolean [][] visited = new boolean[maze.length] [maze.length];
@@ -221,8 +240,13 @@ public class MazeBuilder implements IMazeBuilder {
 		return true; 
 	}
 	
-	// auxiliary method used by checkExitReachable
-	// marks a cell as visited and proceeds recursively to its neighbors
+	/**
+	 *  método auxiliar reutilizado do codigo de teste que servia para testar se a saida era atingivel e que aqui foi utilizavel para a espada ser atingivel
+	 * @param m
+	 * @param i
+	 * @param j
+	 * @param visited
+	 */
 	private void visit(char[][] m, int i, int j, boolean [][] visited) {
 		if (i < 0 || i >= m.length || j < 0 || j >= m.length)
 			return;

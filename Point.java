@@ -1,5 +1,10 @@
 package maze.logic;
-
+/**
+ * 
+ * Point.java
+ * classe fornecida
+ *
+ */
 public class Point {
 	private int x;
 	private int y;

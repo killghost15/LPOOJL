@@ -22,6 +22,8 @@ private BufferedImage sleep;
 private BufferedImage armed;
 private BufferedImage empty;
 private BufferedImage victory;
+private BufferedImage defeat;
+private JButton restart;
 private Object option;
 private int cellWidth=30;
 private int cellHeight=30;
@@ -83,8 +85,28 @@ private Tabuleiro T;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			defeat =  ImageIO.read(new File("defeat.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		this.addKeyListener(this);
+		setLayout(null);
+		
+		restart = new JButton("Restart");
+		restart.setBackground(Color.LIGHT_GRAY);
+		restart.setForeground(Color.BLACK);
+		restart.setVisible(false);
+		restart.setEnabled(false);
+		restart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GameApp n=new GameApp();
+				n.Visible();
+			}
+		});
+		restart.setBounds(349, 80, 91, 23);
+		add(restart);
 		}
 		
 	@Override
@@ -171,6 +193,14 @@ private Tabuleiro T;
 		x=0;y=0;
 		if(T.Vitoria()){g.drawImage(victory,x,y, x+victory.getWidth(),y+victory.getHeight(),0,0,victory.getWidth(),victory.getHeight(), null);
 		//this.removeKeyListener(this);
+		restart.setVisible(true);
+		restart.setEnabled(true);
+		return;
+		}
+		if(T.getEstado()){g.drawImage(defeat,x,y, x+defeat.getWidth(),y+defeat.getHeight(),0,0,defeat.getWidth(),defeat.getHeight(), null);
+		//this.removeKeyListener(this);
+		restart.setVisible(true);
+		restart.setEnabled(true);
 		return;
 		}
 		for(int i=0; i< T.getLabirinto().length;i++){
@@ -201,5 +231,4 @@ private Tabuleiro T;
 			y+=cellHeight;
 			}
 		}
-
 }

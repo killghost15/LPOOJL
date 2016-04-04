@@ -16,7 +16,6 @@ import java.awt.SystemColor;
 public class GameApp {
 
 	private JFrame frame;
-	private Tabuleiro T;
 
 	/**
 	 * Launch the application.
@@ -90,11 +89,15 @@ public class GameApp {
 				else
 					num=Integer.parseInt(diminsert.getText());
 				char [][] m= builder.buildMaze(num , Integer.parseInt(NumDinsert.getText()));
-				JPanel jogo=new GameUi(m);
-				frame.setContentPane(jogo);
+				JPanel jogo=new GameUi(m,comboBox.getSelectedItem());
+				JScrollPane scroll=new JScrollPane(jogo);
+				scroll.setBounds(500, 150, 558, 523);
+				frame.setContentPane(scroll);
 				frame.pack();
 				Dimension di=new Dimension(500,500);
+				
 				frame.setMinimumSize(di);
+				frame.setTitle(NumDinsert.getText()+" Drakes go into a bar with a hero");
 				jogo.setVisible(true);
 				jogo.requestFocus();
 				
@@ -118,6 +121,9 @@ public class GameApp {
 		btnExit.setBounds(258, 152, 151, 50);
 		frame.getContentPane().add(btnExit);
 		
+	}
+	public void Visible(){
+		this.frame.setVisible(true);
 	}
 
 }
