@@ -139,7 +139,6 @@ public class Tabuleiro {
 		if (tabuleiro[y][x]=='X')
 			return false;
 		if(tabuleiro[y][x]=='S' && !AllDead()){
-			System.out.println("AINDA NÃO MATOU Pelo menos um DRAGÃO!"); //talvez eliminar mais tarde
 			return false;
 			}
 		else return true;

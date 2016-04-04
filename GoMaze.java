@@ -100,6 +100,8 @@ public class GoMaze {
 			public void actionPerformed(ActionEvent arg0){
 				IMazeBuilder builder = new MazeBuilder();
 				int num = 0;
+				if(diminsert.getText().equals(""))
+					diminsert.setText("5");
 				if(Integer.parseInt(diminsert.getText())%2==0||Integer.parseInt(diminsert.getText())<5){
 					num = Integer.parseInt(diminsert.getText())-1;
 	
@@ -108,6 +110,8 @@ public class GoMaze {
 				}
 				else
 					num=Integer.parseInt(diminsert.getText());
+				if(NumDinsert.getText().equals(""))
+					NumDinsert.setText("1");
 				char [][] m= builder.buildMaze(num , Integer.parseInt(NumDinsert.getText()));
 				T=new Tabuleiro(m);
 				textArea.setText(T.toString());

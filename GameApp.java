@@ -56,6 +56,7 @@ public class GameApp {
 		JTextField diminsert=new JTextField();
 		diminsert.setColumns(10);
 		diminsert.setBounds(133,20,116,22);
+		diminsert.setText("5");
 		frame.getContentPane().add(diminsert);
 		
 		JLabel NumD = new JLabel("Number of Drakes:");
@@ -65,6 +66,7 @@ public class GameApp {
 		JTextField NumDinsert = new JTextField();
 		NumDinsert.setColumns(10);
 		NumDinsert.setBounds(133,70,116,22);
+		NumDinsert.setText("1");
 		frame.getContentPane().add(NumDinsert);
 		
 		JComboBox comboBox = new JComboBox();
@@ -80,6 +82,8 @@ public class GameApp {
 			public void actionPerformed(ActionEvent arg0){
 				IMazeBuilder builder = new MazeBuilder();
 				int num = 0;
+				if(diminsert.getText().equals(""))
+					diminsert.setText("5");
 				if(Integer.parseInt(diminsert.getText())%2==0||Integer.parseInt(diminsert.getText())<5){
 					num = Integer.parseInt(diminsert.getText())-1;
 	
@@ -88,6 +92,8 @@ public class GameApp {
 				}
 				else
 					num=Integer.parseInt(diminsert.getText());
+				if(NumDinsert.getText().equals(""))
+					NumDinsert.setText("1");
 				char [][] m= builder.buildMaze(num , Integer.parseInt(NumDinsert.getText()));
 				JPanel jogo=new GameUi(m,comboBox.getSelectedItem());
 				JScrollPane scroll=new JScrollPane(jogo);
